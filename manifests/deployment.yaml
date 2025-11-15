@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: delete-task
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: delete-task
+  template:
+    metadata:
+      labels:
+        app: delete-task
+    spec:
+      containers:
+      - name: delete-task
+        image: rakeshacr.azurecr.io/deletetask:v1
+        ports:
+        - containerPort: 8000
+        env:
+        - name: CONNECTION_STRING
+          value: "Driver={ODBC Driver 18 for SQL Server};Server=tcp:rakeshdbs01.database.windows.net,1433;Database=rakeshsqldb01;Uid=azureuser;Pwd={your_password_here};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
+          
